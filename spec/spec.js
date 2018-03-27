@@ -101,6 +101,14 @@ describe('grouping', function() {
     expect(groups).toEqual([['B', '1', 3.3]])
   })
 
+  it('can insert sum', function() {
+    expect(dtl('(2 2 $ 1 2 3) /s /s')).toEqual(7)
+  })
+
+  it('can insert multiply', function() {
+    expect(dtl('(2 2 $ 1 2 3) /* /*')).toEqual(6)
+  })
+
 })
 
 describe('manipulate lists', function() {

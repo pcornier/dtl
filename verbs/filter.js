@@ -2,7 +2,7 @@
 module.exports = function (_) {
   return {
     id: 'filter',
-    re: /^\s*(\?\s*(.+?)\s*([<=>]+)\s*([^?\s]+)\s*)+/,
+    re: /^\s*\?(\s*(.+?)\s*([<=>]+)\s*([^?\s]+)\s*)+/,
     ex: (m, bf) => {
       let fn = []
 

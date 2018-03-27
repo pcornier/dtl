@@ -18,5 +18,6 @@ module.exports = function (_) {
     require('./tostring')(_),
     require('./group')(_),
     require('./join')(_),
+    require('./insert')(_),
   ]
 }

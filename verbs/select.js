@@ -1,9 +1,8 @@
 
-
 module.exports = function (_) {
   return {
     id: 'select',
-    re: /^s*:([\d\.:]+)/,
+    re: /^\s*:([\d\.:]+)/,
     ex: (m, bf) => {
       let sel = function(d, idx, i, buf) {
         idx[i].map(n => {

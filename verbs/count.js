@@ -2,7 +2,7 @@
 module.exports = function (_) {
   return {
     id: 'count',
-    re: /\s*#/,
+    re: /^\s*#/,
     ex: (m, bf) => {
       return bf.length
     }
