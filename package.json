@@ -1,8 +1,8 @@
 {
-  "name": "tt",
+  "name": "DTL",
   "version": "1.0.0",
   "description": "Transformation language inspired by J",
-  "main": "tt.js",
+  "main": "dtl.js",
   "scripts": {
     "test": "jasmine"
   },
