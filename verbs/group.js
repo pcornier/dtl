@@ -34,7 +34,7 @@ module.exports = function (_) {
             arr[f] = arr[f] || {}
             let s = arr[f].s + (row[f[1]] * 1) || row[f[1]] * 1 || 0
             let c = arr[f].c + 1 || 1
-            arr[f] = new Number(s / parseFloat(c))
+            arr[f] = new Number(s / c)
             arr[f].s = s
             arr[f].c = c
           }
