@@ -1,0 +1,13 @@
+{
+  "name": "tt",
+  "version": "1.0.0",
+  "description": "Transformation language inspired by J",
+  "main": "tt.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "author": "pierco",
+  "devDependencies": {
+    "jasmine": "^3.1.0"
+  }
+}
