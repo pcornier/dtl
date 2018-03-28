@@ -1,3 +1,4 @@
+'use strict'
 
 module.exports = function (_) {
   // s = sum, c = count, m = min, M = max, a = average

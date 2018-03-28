@@ -1,3 +1,4 @@
+'use strict'
 
 const dtl = function(code) {
 
@@ -23,6 +24,7 @@ const dtl = function(code) {
     if (/^\s*\(/.test(code)) {
       let c = 0
       let exp = ''
+      let i
       for (i of code) {
         if (i === '(') c++
         if (i === ')') c--
