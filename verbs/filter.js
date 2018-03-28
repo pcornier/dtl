@@ -2,39 +2,18 @@
 module.exports = function (_) {
   return {
     id: 'filter',
-    re: /^\s*\?(\s*(.+?)\s*([<=>]+)\s*([^?\s]+)\s*)+/,
+    re: /^\s*\?\s*(:*)([^<=>!]*)\s*([<=>!]+)\s*(:*)([^?:]+)/,
     ex: (m, bf) => {
-      let fn = []
+      let ia = _(m[2])
+      let ib = _(m[5])
+      let a = m[1] === ':' ? r => r[ia] || r : r => ia || r
+      let b = m[4] === ':' ? r => r[ib] || r : r => ib || r
 
-      let e
-      let re = /[^?]*\?\s*(:*)([^\s]+)\s*([<=>]+)\s*(:*)([^\s?]+)/g
-      while(e = re.exec(m.input)) {
-        let ia = _(e[2])
-        let ib = _(e[5])
-        let a = e[1] === ':' ? r => r[ia] : r => ia
-        let b = e[4] === ':' ? r => r[ib] : r => ib
-        let f
-        switch(e[3]) {
-          case '<':
-            f = (r) => a(r) < b(r)
-            break
-          case '>':
-            f = (r) => a(r) > b(r)
-            break
-          case '=':
-            f = (r) => a(r) == b(r)
-            break
-          case '<=':
-            f = (r) => a(r) <= b(r)
-            break
-          case '>=':
-            f = (r) => a(r) >= b(r)
-            break
-        }
-        fn.push(f)
-      }
+      return bf.filter(r => {
+        let exp = `return A ${m[3]} B`
+        return new Function('A', 'B', exp)(a(r), b(r))
+      })
 
-      return bf.filter(r => fn.every(f => f(r)))
     }
   }
 }

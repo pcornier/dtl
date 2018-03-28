@@ -87,3 +87,7 @@ const dtl = function(code) {
 }
 
 module.exports = dtl
+
+// let a = dtl('(csv `spec/sample.csv` @:1 (:0 /+ ; `total`) ] @:2 @1 ? :0 == `B` :| @:1 /+ ] -; @1) :| @:1 /+ (:1.2.3.4.5 -; `Total`]) ] -; @1 -; @2') //?
+let a = dtl('(5 3 $ i.10) ? :0 > 2 ? :1 == 0') //?
+console.log(a)

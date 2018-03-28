@@ -2,9 +2,15 @@
 module.exports = function (_) {
   return {
     id: 'merge',
-    re: /^\s*;(.+)/,
+    re: /^\s*(-?);(.+)/,
     ex: (m, bf) => {
-      return bf.concat(_(m[1]))
+      let a = bf
+      let b = _(m[2])
+      if (m[1]) {
+        a = b
+        b = bf
+      }
+      return a.concat(b)
     }
   }
 }

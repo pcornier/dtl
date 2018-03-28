@@ -5,10 +5,10 @@ module.exports = function (_) {
   let mul = require('./multiply')(_)
   return {
     id: 'insert',
-    re: /^\s*\/([s\*]+)/,
+    re: /^\s*\/([\+\*]+)/,
     ex: (m, bf) => {
       let fn = {
-        's': (a, v) => {
+        '+': (a, v) => {
           [a, v] = _.create_arrays(a, v)
           return add.add(a, v)
         },

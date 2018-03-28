@@ -4,7 +4,8 @@ module.exports = function (_) {
     id: 'swap',
     re: /^\s*:\|/,
     ex: (m, bf) => {
-      if (!Array.isArray(bf) || !Array.isArray(bf[0])) return bf
+      if (!Array.isArray(bf)) return bf
+      if (!Array.isArray(bf[0])) return bf.map(i => [i])
       let res = []
       for (let x = 0; x < bf[0].length; x++) {
         let row = []

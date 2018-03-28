@@ -19,5 +19,6 @@ module.exports = function (_) {
     require('./group')(_),
     require('./join')(_),
     require('./insert')(_),
+    require('./box')(_),
   ]
 }
