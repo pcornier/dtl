@@ -24,7 +24,6 @@ const dtl = function(code) {
     if (/^\s*\(/.test(code)) {
       let c = 0
       let exp = ''
-      let i
       for (i of code) {
         if (i === '(') c++
         if (i === ')') c--
@@ -77,8 +76,8 @@ const dtl = function(code) {
     }()
   }
 
-  _.create_arrays = function() {
-    let args = Array.from(arguments).map(arr => Array.isArray(arr) ? arr : [arr])
+  _.create_arrays = (...args) => {
+    args = args.map(arr => Array.isArray(arr) ? arr : [arr])
     return args.length > 1 ? args : args[0]
   }
 
