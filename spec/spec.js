@@ -161,30 +161,11 @@ describe('reverse', function() {
 })
 
 
-describe('various tests, wip', function() {
+// multiply
+describe('multiply', function() {
 
   it('can multiply', function() {
     expect(dtl('2 * 3 * 4 * 5')).toEqual(120)
-  })
-
-  it('can add a scalar to a list', function() {
-    expect(dtl('1 2 3 + 5')).toEqual([6, 7, 8])
-  })
-
-  it('can add two lists', function() {
-    expect(dtl('1 2 3 + 4 5')).toEqual([5, 7, 7])
-  })
-
-  it('can use parenthesis', function() {
-    expect(dtl('(5 + 1) * ((2 + 3) * 3)')).toEqual(90)
-  })
-
-  it('can add and multiply lists', function() {
-    expect(dtl('(3 * 1 2) + (2 3 * 3 4) + 5')).toEqual([14, 23])
-  })
-
-  it('can add/multiply and parenthesis', function() {
-    expect(dtl('3 * (1 2 + 2 3) * (3 4 + 5)')).toEqual([72, 135])
   })
 
   it('can multiply a list with a scalar', function() {
@@ -195,15 +176,27 @@ describe('various tests, wip', function() {
     expect(dtl('1 2 3 * 4 2')).toEqual([4, 4, 12])
   })
 
-  it('can generate a list with i.', function() {
-    expect(dtl('i.11 + 2')).toEqual([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
-    expect(dtl('i.11 !')).toEqual([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
+  it('can add and multiply lists', function() {
+    expect(dtl('(3 * 1 2) + (2 3 * 3 4) + 5')).toEqual([14, 23])
   })
 
-  it('can create a list from a csv file', function() {
-    expect(dtl('csv`spec/sample.csv` :0')).toEqual([['CLASS', 'LW', 'LD', 'RW', 'RD']])
+})
+
+// add
+describe('add', function() {
+
+  it('can add a scalar to a list', function() {
+    expect(dtl('1 2 3 + 5')).toEqual([6, 7, 8])
   })
 
+  it('can add two lists', function() {
+    expect(dtl('1 2 3 + 4 5')).toEqual([5, 7, 7])
+  })
+
+})
+
+// swap
+describe('swap', function() {
   it('can swap axes', function() {
     expect(dtl('(3 3 $ 1 2 3) :|')).toEqual([
       [1, 1, 1],
@@ -211,6 +204,20 @@ describe('various tests, wip', function() {
       [3, 3, 3]
     ])
   })
+})
+
+// generator
+describe('generator', function() {
+
+  it('can generate a list with i.', function() {
+    expect(dtl('i.11 + 2')).toEqual([2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+    expect(dtl('i.11 !')).toEqual([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
+  })
+
+})
+
+// join
+describe('join', function() {
 
   it('can join lists', function() {
     expect(dtl('(3 3 $ 1 2) & (2 2 $ 1 `one` 2 `two`) 0=0 :1')).toEqual([
@@ -228,37 +235,42 @@ describe('various tests, wip', function() {
     ])
   })
 
-
-  // todo remove columns & rows
-
-  // it('can insert columns', function() {
-  //   todo (3 3 $ 1 2 3) /|(1 2 3,4 5 6):1 [[1, 1, 4, 2, 3], [1, 2, 5, 2, 3], [1, 3, 6, 2, 3]]
-  // })
-
-  // it('can append columns', function() {
-  //   todo (3 3 $ 1 2 3) /|(4 5 6,7 8 9) [[1, 2, 3, 4, 7], [1, 2, 3, 5, 8], [1, 2, 3, 3, 9]]
-  // })
-
-  // it('can insert rows', function() {
-  //   todo 3 3 $(1 2 3) -\(4 5 6,7 8 9):1 [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 2, 3], [1, 2, 3]]
-  // })
-
-  // it('can append rows', function() {
-  //   todo 3 3 $(1 2 3) -\(4 5 6,7 8 9) [[1, 2, 3], [1, 2, 3], [1, 2, 3], [4, 5, 6], [7, 8, 9]]
-  // })
+})
 
 
-// todo create tests for each verbs
+// csv
+describe('csv', function() {
 
-// sort
-// replace
-// tail
-// head
-// remove duplicates
-// filters add regexp and test inter col comp
-// random
-// auto row/col totals
-// index like pandas DataFrames ? Map w/ array as keys ?
+  it('can create a list from a csv file', function() {
+    expect(dtl('csv`spec/sample.csv` :0')).toEqual([['CLASS', 'LW', 'LD', 'RW', 'RD']])
+  })
+
+})
+
+
+describe('various tests, wip', function() {
+
+  it('can use parenthesis', function() {
+    expect(dtl('(5 + 1) * ((2 + 3) * 3)')).toEqual(90)
+  })
+
+  it('can add/multiply and parenthesis', function() {
+    expect(dtl('3 * (1 2 + 2 3) * (3 4 + 5)')).toEqual([72, 135])
+  })
+
+  // TODO
+  // remove columns & rows
+  // append & insert columns /|
+  // insert rows
+  // sort
+  // replace
+  // tail
+  // head
+  // remove duplicates
+  // filters add regexp and test inter col comp
+  // random
+  // auto row/col totals
+  // index like pandas DataFrames ? Map w/ array as keys ?
 
 })
 
