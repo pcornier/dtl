@@ -1,7 +1,4 @@
-
-## DTL prototype
-[![CircleCI](https://circleci.com/gh/pcornier/dtl.svg?style=svg)](https://circleci.com/gh/pcornier/dtl)
----
+## DTL prototype [![CircleCI](https://circleci.com/gh/pcornier/dtl.svg?style=svg)](https://circleci.com/gh/pcornier/dtl)
 
 A basic Data Transformation Language that pipes data from left to right. This is just a proof of concept and nothing more.
 
