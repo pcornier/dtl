@@ -2,20 +2,20 @@
 
 module.exports = function (_) {
   return {
-    id: 'string',
-    re: /^\s*[`"'](.+?)[`"']/,
+    id: 'rand',
+    re: /^\s*\?:(\d+)/,
     ex: (m, bf) => {
       if (bf !== undefined) {
         if (Array.isArray(bf)) {
-          bf.push(m[1])
+          bf.push(parseInt(Math.random() * (m[1] * 1)))
           return bf
         }
         else {
-          return [bf, m[1]]
+          return [bf, parseInt(Math.random() * (m[1] * 1))]
         }
       }
       else {
-        return m[1]
+        return () => parseInt(Math.random() * (m[1] * 1))
       }
     }
   }

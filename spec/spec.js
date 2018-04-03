@@ -103,11 +103,11 @@ describe('merge', function() {
   })
 
   it('can merge first to second', function() {
-    expect(dtl('1 2 3 -; 4 5 6')).toEqual([4, 5, 6, 1, 2, 3])
+    expect(dtl('1 2 3 ;! 4 5 6')).toEqual([4, 5, 6, 1, 2, 3])
   })
 
   it('can merge lists', function() {
-    expect(dtl('1 2 3; i.10')).toEqual([1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    expect(dtl('1 2 3 ; i.10')).toEqual([1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
   })
 
   it('can merge lists and select', function() {
@@ -247,6 +247,38 @@ describe('csv', function() {
 
 })
 
+// sort
+describe('sort', function() {
+
+  it('can sort a list', function() {
+    expect(dtl('1 4 8 3 2 6 5 0 9 7 ^0')).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+  })
+
+
+  it('can sort a list', function() {
+    expect(dtl('(15 3 $ i.10) ^!1 :0.1')).toEqual([[8, 9, 0], [7, 8, 9]])
+  })
+
+})
+
+
+// random
+describe('random', function() {
+
+  it('can use random numbers in list', function() {
+    let list = dtl('1 ?:10 2 ?:10 3 ?:10 4')
+    expect(list[0]).toEqual(1)
+    expect(list[1]).toBeGreaterThanOrEqual(0)
+    expect(list[1]).toBeLessThan(10)
+    expect(list[6]).toEqual(4)
+  })
+
+  it('can generate a list of random numbers', function() {
+    let sum = dtl('(20 $ ?:100) /+')
+    expect(sum / 20).toBeLessThanOrEqual(100)
+  })
+
+})
 
 describe('various tests, wip', function() {
 
@@ -258,17 +290,19 @@ describe('various tests, wip', function() {
     expect(dtl('3 * (1 2 + 2 3) * (3 4 + 5)')).toEqual([72, 135])
   })
 
+  it('can sort columns', function() {
+    expect(dtl('i.20 $ 3 3'))
+  })
+
   // TODO
   // remove columns & rows
   // append & insert columns /|
   // insert rows
-  // sort
   // replace
   // tail
   // head
   // remove duplicates
   // filters add regexp and test inter col comp
-  // random
   // auto row/col totals
   // index like pandas DataFrames ? Map w/ array as keys ?
 

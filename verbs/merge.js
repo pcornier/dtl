@@ -3,7 +3,7 @@
 module.exports = function (_) {
   return {
     id: 'merge',
-    re: /^\s*(-?);(.+)/,
+    re: /^\s*;(!?)(.+)/,
     ex: (m, bf) => {
       let a = bf
       let b = _(m[2])

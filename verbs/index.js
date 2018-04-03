@@ -6,7 +6,7 @@ module.exports = function (_) {
     require('./filter')(_),
     require('./select')(_),
     require('./dimensions')(_),
-    require('./list')(_),
+    // require('./list')(_),
     require('./swap')(_),
     require('./count')(_),
     require('./reverse')(_),
@@ -21,5 +21,7 @@ module.exports = function (_) {
     require('./join')(_),
     require('./insert')(_),
     require('./box')(_),
+    require('./sort')(_),
+    require('./rand')(_)
   ]
 }

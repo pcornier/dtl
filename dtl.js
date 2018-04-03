@@ -42,6 +42,7 @@ const dtl = function(code) {
       let n = _(m[2])
       if (m[1] === ':') {
         ctx['@'+n] = buffer
+        buffer = undefined
         code = code.replace(m[0], '')
         return _(code, buffer)
       }
@@ -69,6 +70,12 @@ const dtl = function(code) {
   }
 
   _.create_generator = arr => {
+    if (typeof(arr) === 'function') {
+      return function* () {
+        while (true) yield arr()
+      }()
+    }
+
     return function* () {
       while (true) {
         let i = 0
@@ -85,7 +92,10 @@ const dtl = function(code) {
   _.ctx = ctx
 
   const verbs = require('./verbs')(_)
-  return _(code)
+  let result = _(code)
+  return typeof(result) === 'function' ? result() : result
 }
 
 module.exports = dtl
+
+dtl('(15 3 $ i.10) ^!1 :0.1') //?
