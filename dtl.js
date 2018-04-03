@@ -13,13 +13,6 @@ const dtl = function(code) {
       return code.split(/\n|\r\n/).map(c => _(c)).filter(i => i)
     }
 
-    // get from context
-    if (Object.keys(ctx).includes(code)) {
-      let v = ctx[code]
-      delete ctx[code]
-      return v
-    }
-
     // parenthesis
     if (/^\s*\(/.test(code)) {
       let c = 0
@@ -38,16 +31,17 @@ const dtl = function(code) {
 
     // save/load state
     let m
-    if (m = code.match(/^\s*@(:)*([^\s]+)/)) {
-      let n = _(m[2])
-      if (m[1] === ':') {
-        ctx['@'+n] = buffer
-        buffer = undefined
+    if (m = code.match(/^\s*@([^\s]+)/)) {
+      let n = _(m[1])
+      if (ctx['@'+n] !== undefined) {
+        buffer = ctx['@'+n]
         code = code.replace(m[0], '')
-        return _(code, buffer)
+        return _(code, ctx['@'+n])
       }
+      ctx['@'+n] = Array.isArray(buffer) ? [...buffer] : buffer
+      buffer = undefined
       code = code.replace(m[0], '')
-      return _(code, ctx['@'+n])
+      return _(code, buffer)
     }
 
     let found = verbs.some(v => {
@@ -76,6 +70,10 @@ const dtl = function(code) {
       }()
     }
 
+    if (!Array.isArray(arr)) {
+      arr = [arr]
+    }
+
     return function* () {
       while (true) {
         let i = 0
@@ -98,4 +96,4 @@ const dtl = function(code) {
 
 module.exports = dtl
 
-dtl('(15 3 $ i.10) ^!1 :0.1') //?
+dtl('(3 3 $ 1 2) @1 (2 2 $ 1 `one` 2 `two`) @2 @1 & @2 0=0 :1') //?

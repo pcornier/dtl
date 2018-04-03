@@ -13,6 +13,10 @@ describe('lists', function() {
     expect(dtl('1 `a` 2 `bcd` 2.5 3')).toEqual([1, 'a', 2, 'bcd', 2.5, 3])
   })
 
+  it('can create a list with just one number', function() {
+    expect(dtl('2 2 $ 1')).toEqual([[1, 1], [1, 1]])
+  })
+
   it('can create multi-dimensional lists', function() {
     expect(dtl('3 3 3 $ 1 2')).toEqual([
       [[1, 2, 1], [2, 1, 2], [1, 2, 1]],
@@ -57,18 +61,31 @@ describe('box', function() {
 
 })
 
+// unbox
+describe('unbox', function() {
+
+  it('can unbox', function() {
+    expect(dtl('1 ] [')).toEqual(1)
+  })
+
+  it('can box a list', function() {
+    expect(dtl('(2 2 $ 1 2 3) :0:0 [[')).toEqual(1)
+  })
+
+})
+
 // states
 describe('states', function() {
 
   it('can save/load states', function() {
-    expect(dtl('1 2 3 @:1 4 5 6 @1')).toEqual([1, 2, 3])
+    expect(dtl('1 2 3 @1 4 5 6 @1')).toEqual([1, 2, 3])
   })
 
   it('can use states in other verbs', function() {
-    expect(dtl('10 @:1 i.@1')).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-    expect(dtl('1 2 3 @:1 5 + @1')).toEqual([6, 7, 8])
-    expect(dtl('1 2 @:1 (2 2 $ @1)')).toEqual([[1, 2], [1, 2]])
-    expect(dtl('2 3 @:1 (@1 $ @1)')).toEqual([[2, 3, 2], [3, 2, 3]])
+    expect(dtl('10 @1 i.@1')).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    expect(dtl('1 2 3 @1 5 + @1')).toEqual([6, 7, 8])
+    expect(dtl('1 2 @1 (2 2 $ @1)')).toEqual([[1, 2], [1, 2]])
+    expect(dtl('2 3 @1 (@1 $ @1)')).toEqual([[2, 3, 2], [3, 2, 3]])
   })
 
 })
@@ -193,6 +210,10 @@ describe('add', function() {
     expect(dtl('1 2 3 + 4 5')).toEqual([5, 7, 7])
   })
 
+  it('can add multi-dim', function() {
+
+  })
+
 })
 
 // swap
@@ -228,7 +249,7 @@ describe('join', function() {
   })
 
   it('can join lists with states', function() {
-    expect(dtl('(3 3 $ 1 2) @:1 (2 2 $ 1 `one` 2 `two`) @:2 @1 & @2 0=0 :1')).toEqual([
+    expect(dtl('(3 3 $ 1 2) @1 (2 2 $ 1 `one` 2 `two`) @2 @1 & @2 0=0 :1')).toEqual([
       [1, 2, 1, 'one'],
       [2, 1, 2, 'two'],
       [1, 2, 1, 'one']
@@ -280,6 +301,47 @@ describe('random', function() {
 
 })
 
+
+// duplicates
+describe('duplicates', function() {
+
+  it('can remove duplicates', function() {
+    expect(dtl('1 1 2 2 3 3 4 4 ||')).toEqual([1, 2, 3, 4])
+  })
+
+  it('can remove duplicated lists', function() {
+    expect(dtl('(3 3 $ i.3) || [')).toEqual([0, 1, 2])
+  })
+
+})
+
+// head, tail
+describe('head & tail', function() {
+
+  it('can head', function() {
+    expect(dtl('i.10 h3')).toEqual([0, 1, 2])
+  })
+
+  it('can tail', function() {
+    expect(dtl('i.10 t3')).toEqual([7, 8, 9])
+  })
+
+})
+
+
+// search & replace
+describe('head & tail', function() {
+
+  it('can search & replace', function() {
+    expect(dtl('i.3 ? :0>=2 ri.3')).toEqual([0, 1, [0, 1, 2]])
+  })
+
+  it('can search & replace', function() {
+    expect(dtl('i.4 ? :0==2 r`replaced`')).toEqual([0, 1, 'replaced', 3])
+  })
+
+})
+
 describe('various tests, wip', function() {
 
   it('can use parenthesis', function() {
@@ -298,10 +360,6 @@ describe('various tests, wip', function() {
   // remove columns & rows
   // append & insert columns /|
   // insert rows
-  // replace
-  // tail
-  // head
-  // remove duplicates
   // filters add regexp and test inter col comp
   // auto row/col totals
   // index like pandas DataFrames ? Map w/ array as keys ?
